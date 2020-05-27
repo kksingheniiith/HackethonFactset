@@ -1,0 +1,21 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "621f5c3b-8d96-4142-816a-5b425889833e",
+  "alias": "Covid19WebPart",
+  "componentType": "WebPart",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "supportedHosts": ["SharePointWebPart", "TeamsTab"],
+
+  "preconfiguredEntries": [{
+    "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+    "group": { "default": "Other" },
+    "title": { "default": "COVID-19" },
+    "description": { "default": "Updates Covid 19" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "COVID-19"
+    }
+  }]
+}

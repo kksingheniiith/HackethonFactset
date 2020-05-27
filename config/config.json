@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "covid-19-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/covid19/Covid19WebPart.js",
+          "manifest": "./src/webparts/covid19/Covid19WebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "Covid19WebPartStrings": "lib/webparts/covid19/loc/{locale}.js"
+  }
+}
