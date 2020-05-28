@@ -39,7 +39,6 @@ export default class SideBar extends React.Component<
   }
 
   public componentWillReceiveProps(updatedProps: any) {
-    console.log("props", this.props);
     let { currState, currDistrict, IndiaData } = updatedProps;
     if (currDistrict === "none") {
       this.setState({
@@ -63,7 +62,7 @@ export default class SideBar extends React.Component<
   public calc(obj) {
     return Math.ceil((obj.num / obj.den) * 100);
   }
-  render() {
+  public render() {
     return (
       <div className="sidebar-class">
         <div className=" w-100 ">

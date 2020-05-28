@@ -19,6 +19,7 @@ export interface IGridStates {
   selectedState: any;
   selectedDistrict: any;
   totalIndiaCount: any;
+  imageUrl: string;
 }
 
 export interface IGridProps {
@@ -37,4 +38,8 @@ export interface ISideBarStates {
   confirmed: any;
   deceased: any;
   recovered: any;
+}
+
+export interface ImageDisplayProps {
+  url: string;
 }
