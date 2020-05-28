@@ -50,9 +50,13 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
         todayConfirmedCount = 0,
         todayrecoveredCount = 0;
       for (let district in data.districtData) {
-        let { active, confirmed, deceased, recovered, delta } = data.districtData[
-          district
-        ];
+        let {
+          active,
+          confirmed,
+          deceased,
+          recovered,
+          delta,
+        } = data.districtData[district];
         activeCount += active;
         confirmedCount += confirmed;
         deceasedCount += deceased;
@@ -77,7 +81,7 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
           recovered: recoveredCount,
           todayDeceased: todayDeceasedCount,
           todayConfirmed: todayConfirmedCount,
-          todayRecovered: todayrecoveredCount
+          todayRecovered: todayrecoveredCount,
         });
         if (state === "Andaman and Nicobar Islands") {
           this.setState({
@@ -89,9 +93,9 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
               recovered: recoveredCount,
               todayDeceased: todayDeceasedCount,
               todayConfirmed: todayConfirmedCount,
-              todayRecovered: todayrecoveredCount
+              todayRecovered: todayrecoveredCount,
             },
-            imageUrl: state + ".png",
+            imageUrl: state,
           });
         }
       }
@@ -145,10 +149,17 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
         selectedDistrict: row.data,
       });
     } else {
-      const tempData = this.props.statesUpdatedData.filter(data => data.state == row.data.state)[0];
+      const tempData = this.props.statesUpdatedData.filter(
+        (data) => data.state == row.data.state
+      )[0];
       this.setState({
-        selectedState: {...row.data,todayConfirmed:tempData.deltaconfirmed, todayDeceased:tempData.deltadeaths,todayRecovered: tempData.deltarecovered},
-        imageUrl: row.data.state + ".png",
+        selectedState: {
+          ...row.data,
+          todayConfirmed: tempData.deltaconfirmed,
+          todayDeceased: tempData.deltadeaths,
+          todayRecovered: tempData.deltarecovered,
+        },
+        imageUrl: row.data.state,
       });
     }
   }
