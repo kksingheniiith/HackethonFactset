@@ -1,9 +1,24 @@
 import * as React from 'react';
 // import styles from './Covid19.module.scss';
-import { ICovid19Props } from './ICovid19Props';
+import { ICovid19Props, ICovid19States } from './ICovid19Props';
 import { escape } from '@microsoft/sp-lodash-subset';
 
-export default class Covid19 extends React.Component<ICovid19Props, {}> {
+export default class Covid19 extends React.Component<ICovid19Props, ICovid19States> {
+
+  constructor(props: any){
+    super(props);
+
+    this.state = {
+      title: 'Welcome to Teams App!',
+      subTitle: 'Customize SharePoint experiences using Web Parts.',
+      siteTabTitle: 'Learn more1',
+    }
+  }
+
+  public componentDidMount(){
+
+  }
+
   public render(): React.ReactElement<ICovid19Props> {
     return (
       // <div className={ styles.covid19 }>
@@ -21,11 +36,11 @@ export default class Covid19 extends React.Component<ICovid19Props, {}> {
       //   </div>
       // </div>
       <div>
-        <span>Welcome to SharePoint!</span>
+        <span>{this.state.title}</span>
         <p>Customize SharePoint experiences using Web Parts.</p>
         <p>{escape(this.props.description)}</p>
         <a href="https://aka.ms/spfx">
-          <span>Learn more</span>
+          <span>Learn more1</span>
         </a>
       </div>
     );
