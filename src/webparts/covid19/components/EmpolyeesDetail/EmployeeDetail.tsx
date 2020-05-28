@@ -11,7 +11,7 @@ import { UserProfileService } from '../../../../Services/UserProfileService';
 import { IEmployeeDetailProps, IEmployeeDetailStates } from './IEmployeeDetail';
 import { GridHeader } from '../Common/GridHeader/GridHeader';
 import { GridRow } from '../Common/GridRow/GridRow';
-import './EmployeeDetail.scss';
+import './EmployeeDetail.css';
 
 
 enum Status{
@@ -49,7 +49,6 @@ export class EmployeesDetail extends React.Component<IEmployeeDetailProps, IEmpl
     private _closeEmployeeDialog() {
         this.setState({ showEmployeeDialog: false });
     }
-    public componentWillReceiveProps
 
     private _closeMarkDialog(status: string) {
         if(status.length > 0){
@@ -154,7 +153,7 @@ export class EmployeesDetail extends React.Component<IEmployeeDetailProps, IEmpl
                     <GridHeader cols={["NAME", "EMAIL", "STATUS"]}/>
                     {
                         this.state.employeesDetail.map((detail: any, index: number) => {
-                            return <GridRow cols={["Kundan", detail.Title, detail.Status]} isEven={index%2 != 0}/>
+                            return <GridRow cols={["Kundan", detail.Title, detail.Status]} isEven={index%2 != 0}/>;
                         })
                     }
                 </Dialog>

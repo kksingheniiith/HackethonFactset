@@ -6,14 +6,11 @@ import { escape } from "@microsoft/sp-lodash-subset";
 import Grid from "./grid/grid";
 import covidService from "../../../Services/covid19.svc";
 import "./Covid19.css";
-<<<<<<< HEAD
 import SideBar from "./sideBar/sideBar";
-=======
 import { ServiceScope } from '@microsoft/sp-core-library';
 import { UserProfileService } from '../../../Services/UserProfileService';
 import { IUserProfile } from '../../../Services/IUserProfile';
 import { EmployeesDetail } from './EmpolyeesDetail/EmployeeDetail';
->>>>>>> fc9ae871556df25cf69e720291e6dd5582ec3cb4
 
 export default class Covid19 extends React.Component<ICovid19Props, ICovid19States> {
   private dataCenterServiceInstance: any;
@@ -23,8 +20,9 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
       title: "Welcome to Teams App!",
       subTitle: "Customize SharePoint experiences using Web Parts.",
       siteTabTitle: "Learn more1",
+      districtWiseDataInArray: [],
+      districtWiseDataInObject : undefined,
       stateWiseDataInArray: [],
-      stateWiseDataInObject : undefined,
       userProfileItems: undefined
     };
   }
@@ -58,19 +56,22 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
       console.log(userProfileItems);
       this.setState({ userProfileItems: userProfileItems }); 
     });
-    covidService.getStateWiseData().then((data: any) => {
-      this.setState({
-        stateWiseDataInArray: [...Object.keys(data).map(state =>{
-           return {"state" : state,"data" : data[state]};
-          })],
-          stateWiseDataInObject: data
-      });
+    covidService.getDistrictWiseData().then((data: any) => {
+      covidService.getStateWiseData().then((stateData: any) => {
+        this.setState({
+          districtWiseDataInArray: [...Object.keys(data).map(state =>{
+             return {"state" : state,"data" : data[state]};
+            })],
+            districtWiseDataInObject: data,
+            stateWiseDataInArray: stateData.statewise,
+        });
+      })
     });
   }
 
   public render(): React.ReactElement<ICovid19Props> {
     let display;
-    if (this.state.stateWiseDataInArray.length === 0) {
+    if (this.state.districtWiseDataInArray.length === 0) {
       display = (
         <div className="spinner-div">
           <div className="spinner-border spinner-size" role="status">
@@ -81,8 +82,9 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
     } else {
       display = (
         <Grid
-          statesData={this.state.stateWiseDataInArray}
-          statesDataObject={this.state.stateWiseDataInObject}
+          statesData={this.state.districtWiseDataInArray}
+          statesDataObject={this.state.districtWiseDataInObject}
+          statesUpdatedData={this.state.stateWiseDataInArray}
         />
       );
     }
