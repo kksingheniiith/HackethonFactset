@@ -1,9 +1,12 @@
 import * as React from "react";
 // import styles from './Covid19.module.scss';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { ICovid19Props, ICovid19States } from "./ICovid19Props";
 import { escape } from "@microsoft/sp-lodash-subset";
 import Grid from "./grid/grid";
-import covidService from '../../../Services/covid19.svc';
+import covidService from "../../../Services/covid19.svc";
+import { Spinner } from "react-bootstrap";
+import "./Covid19.css";
 import { ServiceScope } from '@microsoft/sp-core-library';
 import { UserProfileService } from '../../../Services/UserProfileService';
 import { IUserProfile } from '../../../Services/IUserProfile';
@@ -14,9 +17,9 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
   constructor(props: any){
     super(props);
     this.state = {
-      title: 'Welcome to Teams App!',
-      subTitle: 'Customize SharePoint experiences using Web Parts.',
-      siteTabTitle: 'Learn more1',
+      title: "Welcome to Teams App!",
+      subTitle: "Customize SharePoint experiences using Web Parts.",
+      siteTabTitle: "Learn more1",
       stateWiseDataInArray: [],
       stateWiseDataInObject : undefined,
       userProfileItems: undefined
@@ -63,6 +66,24 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
   }
 
   public render(): React.ReactElement<ICovid19Props> {
+    let display;
+    if (this.state.stateWiseDataInArray.length === 0) {
+      display = (
+        <div className="spinner-div">
+          <div className="spinner-border spinner-size" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      );
+    } else {
+      display = (
+        <Grid
+          statesData={this.state.stateWiseDataInArray}
+          statesDataObject={this.state.stateWiseDataInObject}
+        />
+      );
+    }
+
     return (
       <div>
         <EmployeesDetail serviceScope={this.props.serviceScope} curentUser= {this.state.userProfileItems}/>
@@ -72,7 +93,7 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
         <a href="https://aka.ms/spfx">
           <span>gg</span>
         </a>
-        <Grid />
+        <div className="grid-display">{display}</div>
       </div>
     );
   }

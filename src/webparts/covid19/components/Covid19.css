@@ -1,0 +1,16 @@
+.spinner-div {
+  width: 100%;
+  height: 100%;
+  background-color: #bdbdbd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner-size {
+  width: 4rem;
+  height: 4rem;
+}
+.grid-display {
+  height: 500px;
+  width: 700px;
+}
