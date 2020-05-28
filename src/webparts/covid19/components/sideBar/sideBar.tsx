@@ -16,7 +16,7 @@ export default class SideBar extends React.Component<
       confirmed: {},
       todayDeceased: {},
       todayConfirmed: {},
-      todayRecovered: {}
+      todayRecovered: {},
     };
   }
 
@@ -29,9 +29,18 @@ export default class SideBar extends React.Component<
         recovered: { num: currState.recovered, den: IndiaData.recovered },
         deceased: { num: currState.deceased, den: IndiaData.deceased },
         confirmed: { num: currState.confirmed, den: IndiaData.confirmed },
-        todayDeceased: { num: currState.todayDeceased, den: IndiaData.todayDeceased },
-        todayConfirmed: { num: currState.todayConfirmed, den: IndiaData.todayConfirmed },
-        todayRecovered: { num: currState.todayRecovered, den: IndiaData.todayRecovered } 
+        todayDeceased: {
+          num: currState.todayDeceased,
+          den: IndiaData.todayDeceased,
+        },
+        todayConfirmed: {
+          num: currState.todayConfirmed,
+          den: IndiaData.todayConfirmed,
+        },
+        todayRecovered: {
+          num: currState.todayRecovered,
+          den: IndiaData.todayRecovered,
+        },
       });
     } else {
       this.setState({
@@ -40,9 +49,18 @@ export default class SideBar extends React.Component<
         recovered: { num: currDistrict.recovered, den: currState.recovered },
         deceased: { num: currDistrict.deceased, den: currState.deceased },
         confirmed: { num: currDistrict.confirmed, den: currState.confirmed },
-        todayDeceased: { num: currState.todayDeceased, den: IndiaData.todayDeceased },
-        todayConfirmed: { num: currState.todayConfirmed, den: IndiaData.todayConfirmed },
-        todayRecovered: { num: currState.todayRecovered, den: IndiaData.todayRecovered } 
+        todayDeceased: {
+          num: currState.todayDeceased,
+          den: IndiaData.todayDeceased,
+        },
+        todayConfirmed: {
+          num: currState.todayConfirmed,
+          den: IndiaData.todayConfirmed,
+        },
+        todayRecovered: {
+          num: currState.todayRecovered,
+          den: IndiaData.todayRecovered,
+        },
       });
     }
   }
@@ -56,9 +74,18 @@ export default class SideBar extends React.Component<
         recovered: { num: currState.recovered, den: IndiaData.recovered },
         deceased: { num: currState.deceased, den: IndiaData.deceased },
         confirmed: { num: currState.confirmed, den: IndiaData.confirmed },
-        todayDeceased: { num: currState.todayDeceased, den: IndiaData.todayDeceased },
-        todayConfirmed: { num: currState.todayConfirmed, den: IndiaData.todayConfirmed },
-        todayRecovered: { num: currState.todayRecovered, den: IndiaData.todayRecovered } 
+        todayDeceased: {
+          num: currState.todayDeceased,
+          den: IndiaData.todayDeceased,
+        },
+        todayConfirmed: {
+          num: currState.todayConfirmed,
+          den: IndiaData.todayConfirmed,
+        },
+        todayRecovered: {
+          num: currState.todayRecovered,
+          den: IndiaData.todayRecovered,
+        },
       });
     } else {
       this.setState({
@@ -67,9 +94,18 @@ export default class SideBar extends React.Component<
         recovered: { num: currDistrict.recovered, den: currState.recovered },
         deceased: { num: currDistrict.deceased, den: currState.deceased },
         confirmed: { num: currDistrict.confirmed, den: currState.confirmed },
-        todayDeceased: { num: currState.todayDeceased, den: IndiaData.todayDeceased },
-        todayConfirmed: { num: currState.todayConfirmed, den: IndiaData.todayConfirmed },
-        todayRecovered: { num: currState.todayRecovered, den: IndiaData.todayRecovered } 
+        todayDeceased: {
+          num: currState.todayDeceased,
+          den: IndiaData.todayDeceased,
+        },
+        todayConfirmed: {
+          num: currState.todayConfirmed,
+          den: IndiaData.todayConfirmed,
+        },
+        todayRecovered: {
+          num: currState.todayRecovered,
+          den: IndiaData.todayRecovered,
+        },
       });
     }
   }
@@ -93,7 +129,8 @@ export default class SideBar extends React.Component<
             <h6 className="card-title font-weight-bold">Confirmed</h6>
             <h4 className="card-title font-weight-bold">
               {this.state.confirmed.num}
-              <span>&#8593;</span><span>{this.state.todayConfirmed.num}</span>
+              <span>&#8593;</span>
+              <span>{this.state.todayConfirmed.num}</span>
             </h4>
             <div className="progress">
               <div
@@ -136,7 +173,8 @@ export default class SideBar extends React.Component<
             <h6 className="card-title font-weight-bold">Recovered</h6>
             <h4 className="card-title font-weight-bold">
               {this.state.recovered.num}
-              <span>&#8593;</span><span>{this.state.todayRecovered.num}</span>
+              <span>&#8593;</span>
+              <span>{this.state.todayRecovered.num}</span>
             </h4>
             <div className="progress">
               <div
@@ -158,7 +196,8 @@ export default class SideBar extends React.Component<
             <h6 className="card-title font-weight-bold">Deceased</h6>
             <h4 className="card-title font-weight-bold">
               {this.state.deceased.num}
-              <span>&#8593;</span><span>{this.state.todayDeceased.num}</span>
+              <span>&#8593;</span>
+              <span>{this.state.todayDeceased.num}</span>
             </h4>
             <div className="progress">
               <div

@@ -1,0 +1,16 @@
+.india-class {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+}
+
+.india-class .card {
+  margin: 5px;
+  text-align: center;
+}
+
+.card-body span {
+  font-size: 13px;
+  display: block;
+  margin-bottom: 5px;
+}

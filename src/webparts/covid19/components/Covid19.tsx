@@ -7,10 +7,11 @@ import Grid from "./grid/grid";
 import covidService from "../../../Services/covid19.svc";
 import "./Covid19.css";
 import SideBar from "./sideBar/sideBar";
-import { ServiceScope } from '@microsoft/sp-core-library';
-import { UserProfileService } from '../../../Services/UserProfileService';
-import { IUserProfile } from '../../../Services/IUserProfile';
-import { EmployeesDetail } from './EmpolyeesDetail/EmployeeDetail';
+import { ServiceScope } from "@microsoft/sp-core-library";
+import { UserProfileService } from "../../../Services/UserProfileService";
+import { IUserProfile } from "../../../Services/IUserProfile";
+import { EmployeesDetail } from "./EmpolyeesDetail/EmployeeDetail";
+import IndiaTotal from "../components/IndiaTotal/IndiaTotal";
 
 export default class Covid19 extends React.Component<
   ICovid19Props,
@@ -24,56 +25,71 @@ export default class Covid19 extends React.Component<
       subTitle: "Customize SharePoint experiences using Web Parts.",
       siteTabTitle: "Learn more1",
       districtWiseDataInArray: [],
-      districtWiseDataInObject : undefined,
+      districtWiseDataInObject: undefined,
       stateWiseDataInArray: [],
-      userProfileItems: undefined
+      userProfileItems: undefined,
     };
   }
 
-  public componentDidMount(){
-    let serviceScope: ServiceScope = this.props.serviceScope;    
-    this.dataCenterServiceInstance = serviceScope.consume(UserProfileService.serviceKey);  
-  
-    this.dataCenterServiceInstance.getUserProfileProperties().then((userProfileItems: IUserProfile) => {    
-      for (let i: number = 0; i < userProfileItems.UserProfileProperties.length; i++) {  
-        if (userProfileItems.UserProfileProperties[i].Key == "FirstName") {  
-          userProfileItems.FirstName = userProfileItems.UserProfileProperties[i].Value;  
-        }  
-  
-        if (userProfileItems.UserProfileProperties[i].Key == "LastName") {  
-          userProfileItems.LastName = userProfileItems.UserProfileProperties[i].Value;  
-        }  
-  
-        if (userProfileItems.UserProfileProperties[i].Key == "WorkPhone") {  
-          userProfileItems.WorkPhone = userProfileItems.UserProfileProperties[i].Value;  
-        }  
-  
-        if (userProfileItems.UserProfileProperties[i].Key == "Department") {  
-          userProfileItems.Department = userProfileItems.UserProfileProperties[i].Value;  
-        }  
-  
-        if (userProfileItems.UserProfileProperties[i].Key == "PictureURL") {  
-          userProfileItems.PictureURL = userProfileItems.UserProfileProperties[i].Value;  
-        }  
-      }  
-      console.log(userProfileItems);
-      this.setState({ userProfileItems: userProfileItems }); 
-    });
+  public componentDidMount() {
+    let serviceScope: ServiceScope = this.props.serviceScope;
+    this.dataCenterServiceInstance = serviceScope.consume(
+      UserProfileService.serviceKey
+    );
+
+    this.dataCenterServiceInstance
+      .getUserProfileProperties()
+      .then((userProfileItems: IUserProfile) => {
+        for (
+          let i: number = 0;
+          i < userProfileItems.UserProfileProperties.length;
+          i++
+        ) {
+          if (userProfileItems.UserProfileProperties[i].Key == "FirstName") {
+            userProfileItems.FirstName =
+              userProfileItems.UserProfileProperties[i].Value;
+          }
+
+          if (userProfileItems.UserProfileProperties[i].Key == "LastName") {
+            userProfileItems.LastName =
+              userProfileItems.UserProfileProperties[i].Value;
+          }
+
+          if (userProfileItems.UserProfileProperties[i].Key == "WorkPhone") {
+            userProfileItems.WorkPhone =
+              userProfileItems.UserProfileProperties[i].Value;
+          }
+
+          if (userProfileItems.UserProfileProperties[i].Key == "Department") {
+            userProfileItems.Department =
+              userProfileItems.UserProfileProperties[i].Value;
+          }
+
+          if (userProfileItems.UserProfileProperties[i].Key == "PictureURL") {
+            userProfileItems.PictureURL =
+              userProfileItems.UserProfileProperties[i].Value;
+          }
+        }
+        console.log(userProfileItems);
+        this.setState({ userProfileItems: userProfileItems });
+      });
     covidService.getDistrictWiseData().then((data: any) => {
       covidService.getStateWiseData().then((stateData: any) => {
         this.setState({
-          districtWiseDataInArray: [...Object.keys(data).map(state =>{
-             return {"state" : state,"data" : data[state]};
-            })],
-            districtWiseDataInObject: data,
-            stateWiseDataInArray: stateData.statewise,
+          districtWiseDataInArray: [
+            ...Object.keys(data).map((state) => {
+              return { state: state, data: data[state] };
+            }),
+          ],
+          districtWiseDataInObject: data,
+          stateWiseDataInArray: stateData.statewise,
         });
-      })
+      });
     });
   }
 
   public render(): React.ReactElement<ICovid19Props> {
-    let display;
+    let display, indData;
     if (this.state.districtWiseDataInArray.length === 0) {
       display = (
         <div className="spinner-div">
@@ -92,12 +108,19 @@ export default class Covid19 extends React.Component<
       );
     }
 
+    if (this.state.stateWiseDataInArray.length === 0) {
+      indData = <span></span>;
+    } else {
+      indData = <IndiaTotal TotalData={this.state.stateWiseDataInArray[0]} />;
+    }
+
     return (
       <div>
         <EmployeesDetail
           serviceScope={this.props.serviceScope}
           curentUser={this.state.userProfileItems}
         />
+        {indData}
         <div className="grid-display">{display}</div>
       </div>
     );
