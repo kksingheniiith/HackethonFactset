@@ -48,3 +48,7 @@ export interface ISideBarStates {
 export interface ImageDisplayProps {
   url: string;
 }
+
+export interface IndiaTotalProps {
+  TotalData: any;
+}
