@@ -7,8 +7,9 @@ export interface ICovid19States {
   title: string;
   subTitle: string;
   siteTabTitle: string;
+  districtWiseDataInArray: Array<any>;
+  districtWiseDataInObject: any;
   stateWiseDataInArray: Array<any>;
-  stateWiseDataInObject: any;
   userProfileItems: any;
 }
 
@@ -25,6 +26,7 @@ export interface IGridStates {
 export interface IGridProps {
   statesData: Array<any>;
   statesDataObject: any;
+  statesUpdatedData: Array<any>;
 }
 
 export interface ISideBarProps {
@@ -38,6 +40,9 @@ export interface ISideBarStates {
   confirmed: any;
   deceased: any;
   recovered: any;
+  todayDeceased: any;
+  todayConfirmed: any;
+  todayRecovered: any;
 }
 
 export interface ImageDisplayProps {

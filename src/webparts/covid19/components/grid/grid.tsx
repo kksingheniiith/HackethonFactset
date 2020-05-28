@@ -37,32 +37,47 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
     let Iactive = 0,
       Ideceased = 0,
       Irecovered = 0,
-      Iconfirmed = 0;
+      Iconfirmed = 0,
+      ItodayDeceased = 0,
+      ItodayConfirmed = 0,
+      Itodayrecovered = 0;
     stateData.forEach(({ state, data }) => {
       let activeCount = 0,
         deceasedCount = 0,
         confirmedCount = 0,
-        recoveredCount = 0;
+        recoveredCount = 0,
+        todayDeceasedCount = 0,
+        todayConfirmedCount = 0,
+        todayrecoveredCount = 0;
       for (let district in data.districtData) {
-        let { active, confirmed, deceased, recovered } = data.districtData[
+        let { active, confirmed, deceased, recovered, delta } = data.districtData[
           district
         ];
         activeCount += active;
         confirmedCount += confirmed;
         deceasedCount += deceased;
         recoveredCount += recovered;
+        todayDeceasedCount += delta.deceased;
+        todayConfirmedCount += delta.confirmed;
+        todayrecoveredCount += delta.recovered;
       }
       if (state !== "State Unassigned") {
         Iconfirmed += confirmedCount;
         Iactive += activeCount;
         Ideceased += deceasedCount;
         Irecovered += recoveredCount;
+        ItodayDeceased += todayDeceasedCount;
+        ItodayConfirmed += todayConfirmedCount;
+        Itodayrecovered += todayrecoveredCount;
         gridData.push({
           state,
           active: activeCount,
           deceased: deceasedCount,
           confirmed: confirmedCount,
           recovered: recoveredCount,
+          todayDeceased: todayDeceasedCount,
+          todayConfirmed: todayConfirmedCount,
+          todayRecovered: todayrecoveredCount
         });
         if (state === "Andaman and Nicobar Islands") {
           this.setState({
@@ -72,6 +87,9 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
               deceased: deceasedCount,
               confirmed: confirmedCount,
               recovered: recoveredCount,
+              todayDeceased: todayDeceasedCount,
+              todayConfirmed: todayConfirmedCount,
+              todayRecovered: todayrecoveredCount
             },
             imageUrl: state + ".png",
           });
@@ -127,8 +145,9 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
         selectedDistrict: row.data,
       });
     } else {
+      const tempData = this.props.statesUpdatedData.filter(data => data.state == row.data.state)[0];
       this.setState({
-        selectedState: row.data,
+        selectedState: {...row.data,todayConfirmed:tempData.deltaconfirmed, todayDeceased:tempData.deltadeaths,todayRecovered: tempData.deltarecovered},
         imageUrl: row.data.state + ".png",
       });
     }

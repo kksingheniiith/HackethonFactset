@@ -1,17 +1,17 @@
 import * as React from "react";
 import { ServiceScope } from "@microsoft/sp-core-library";
 import {
-  Dialog,
-  DialogType,
-  DialogFooter,
-  Button,
-  ButtonType,
-} from "office-ui-fabric-react";
-import { UserProfileService } from "../../../../Services/UserProfileService";
-import { IEmployeeDetailProps, IEmployeeDetailStates } from "./IEmployeeDetail";
-import { GridHeader } from "../Common/GridHeader/GridHeader";
-import { GridRow } from "../Common/GridRow/GridRow";
-import "./EmployeeDetail.css";
+    Dialog,
+    DialogType,
+    DialogFooter,
+    Button,
+    ButtonType,
+  } from 'office-ui-fabric-react';
+import { UserProfileService } from '../../../../Services/UserProfileService';
+import { IEmployeeDetailProps, IEmployeeDetailStates } from './IEmployeeDetail';
+import { GridHeader } from '../Common/GridHeader/GridHeader';
+import { GridRow } from '../Common/GridRow/GridRow';
+import './EmployeeDetail.css';
 
 enum Status {
   SAFE = "Safe",
@@ -196,74 +196,48 @@ export class EmployeesDetail extends React.Component<
     });
   }
 
-  public render(): React.ReactElement<IEmployeeDetailProps> {
-    return (
-      <div>
-        <header className="employee-detail-header">
-          {`Total `}
-          <span className="safe-text">{`${this.state.safe} Employees are marked as safe, `}</span>
-          <span className="symptom-text">{`${this.state.symptom} Employees are feeling same symptom, `}</span>
-          <span className="confirm-text">{`${this.state.confirm} Employees are confirmed`}</span>
-          <Button className="mark-button" onClick={this._showEmployeeDialog}>
-            Employees List
-          </Button>
-          <Button className="mark-button" onClick={this._showMarkDialog}>
-            Mark as safe
-          </Button>
-        </header>
-        <Dialog
-          isOpen={this.state.showMarkDialog}
-          type={DialogType.normal}
-          onDismiss={() => {
-            this._closeMarkDialog("");
-          }}
-          title="Please confirm your status"
-          isBlocking={false}
-          containerClassName="ms-dialogMainOverride"
-        >
-          <DialogFooter>
-            <Button
-              buttonType={ButtonType.primary}
-              onClick={() => this._closeMarkDialog("Safe")}
-            >
-              Safe
-            </Button>
-            <Button
-              buttonType={ButtonType.primary}
-              onClick={() => this._closeMarkDialog("Symptoms")}
-            >
-              Symptoms
-            </Button>
-            <Button
-              buttonType={ButtonType.primary}
-              onClick={() => this._closeMarkDialog("Confirmed")}
-            >
-              Confirmed
-            </Button>
-          </DialogFooter>
-        </Dialog>
-        <Dialog
-          isOpen={this.state.showEmployeeDialog}
-          type={DialogType.normal}
-          onDismiss={() => {
-            this._closeEmployeeDialog();
-          }}
-          title="Emolyees List"
-          isBlocking={false}
-          containerClassName="ms-dialogMainOverride"
-          maxWidth="800"
-        >
-          <GridHeader cols={["NAME", "EMAIL", "STATUS"]} />
-          {this.state.employeesDetail.map((detail: any, index: number) => {
-            return (
-              <GridRow
-                cols={["Kundan", detail.Title, detail.Status]}
-                isEven={index % 2 != 0}
-              />
-            );
-          })}
-        </Dialog>
-      </div>
-    );
-  }
+    public render(): React.ReactElement<IEmployeeDetailProps> {
+        return (
+            <div>
+                <header className="employee-detail-header">
+                    {`Total `}
+                    <span className="safe-text">{`${this.state.safe} Employees are marked as safe, `}</span>
+                    <span className="symptom-text">{`${this.state.symptom} Employees are feeling same symptom, `}</span>
+                    <span className="confirm-text">{`${this.state.confirm} Employees are confirmed`}</span>
+                    <Button className="mark-button" onClick={this._showEmployeeDialog}>Employees List</Button>
+                    <Button className="mark-button" onClick={this._showMarkDialog}>Mark as safe</Button>
+                </header>
+                <Dialog
+                    isOpen={this.state.showMarkDialog}
+                    type={DialogType.normal}
+                    onDismiss={() => {this._closeMarkDialog("");}}
+                    title='Please confirm your status'
+                    isBlocking={false}
+                    containerClassName='ms-dialogMainOverride'
+                >
+                    <DialogFooter>
+                        <Button buttonType={ButtonType.primary} onClick={() => this._closeMarkDialog("Safe")}>Safe</Button>
+                        <Button buttonType={ButtonType.primary} onClick={() => this._closeMarkDialog("Symptoms")}>Symptoms</Button>
+                        <Button buttonType={ButtonType.primary} onClick={() => this._closeMarkDialog("Confirmed")}>Confirmed</Button>
+                    </DialogFooter>
+                </Dialog>
+                <Dialog
+                    isOpen={this.state.showEmployeeDialog}
+                    type={DialogType.normal}
+                    onDismiss={() => {this._closeEmployeeDialog();}}
+                    title='Emolyees List'
+                    isBlocking={false}
+                    containerClassName='ms-dialogMainOverride'
+                    maxWidth="800"
+                >
+                    <GridHeader cols={["NAME", "EMAIL", "STATUS"]}/>
+                    {
+                        this.state.employeesDetail.map((detail: any, index: number) => {
+                            return <GridRow cols={["Kundan", detail.Title, detail.Status]} isEven={index%2 != 0}/>;
+                        })
+                    }
+                </Dialog>
+            </div>
+        );
+      }
 }

@@ -13,3 +13,24 @@
   justify-content: center;
   align-items: center;
 }
+.text-warning .card-title span:first-child, .text-danger .card-title span:first-child{
+  color: red;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.text-warning .card-title span:nth-child(2), .text-danger .card-title span:nth-child(2){
+  color: red;
+  font-size: 18px;
+  margin-left: 2px;
+}
+
+.text-success .card-title span:first-child{
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.text-success .card-title span:nth-child(2){
+  font-size: 18px;
+  margin-left: 2px;
+}
