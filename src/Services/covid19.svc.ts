@@ -19,7 +19,7 @@ class covidService {
             return response.json();
         }).then((data: any) => {
             return data;
-        })
+        });
     }
 }
 

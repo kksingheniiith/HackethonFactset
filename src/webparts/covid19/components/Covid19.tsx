@@ -68,7 +68,7 @@ export default class Covid19 extends React.Component<
             districtWiseDataInObject: data,
             stateWiseDataInArray: stateData.statewise,
         });
-      })
+      });
     });
   }
 
@@ -98,6 +98,7 @@ export default class Covid19 extends React.Component<
           serviceScope={this.props.serviceScope}
           curentUser={this.state.userProfileItems}
         />
+
         <div className="grid-display">{display}</div>
       </div>
     );

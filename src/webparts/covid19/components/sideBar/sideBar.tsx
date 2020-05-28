@@ -40,9 +40,9 @@ export default class SideBar extends React.Component<
         recovered: { num: currDistrict.recovered, den: currState.recovered },
         deceased: { num: currDistrict.deceased, den: currState.deceased },
         confirmed: { num: currDistrict.confirmed, den: currState.confirmed },
-        todayDeceased: { num: currState.todayDeceased, den: IndiaData.todayDeceased },
-        todayConfirmed: { num: currState.todayConfirmed, den: IndiaData.todayConfirmed },
-        todayRecovered: { num: currState.todayRecovered, den: IndiaData.todayRecovered } 
+        todayDeceased: { num: currDistrict.todayDeceased, den: currState.todayDeceased },
+        todayConfirmed: { num: currDistrict.todayConfirmed, den: currState.todayConfirmed },
+        todayRecovered: { num: currDistrict.todayRecovered, den: currState.todayRecovered } 
       });
     }
   }
@@ -67,9 +67,9 @@ export default class SideBar extends React.Component<
         recovered: { num: currDistrict.recovered, den: currState.recovered },
         deceased: { num: currDistrict.deceased, den: currState.deceased },
         confirmed: { num: currDistrict.confirmed, den: currState.confirmed },
-        todayDeceased: { num: currState.todayDeceased, den: IndiaData.todayDeceased },
-        todayConfirmed: { num: currState.todayConfirmed, den: IndiaData.todayConfirmed },
-        todayRecovered: { num: currState.todayRecovered, den: IndiaData.todayRecovered } 
+        todayDeceased: { num: currDistrict.todayDeceased, den: currState.todayDeceased },
+        todayConfirmed: { num: currDistrict.todayConfirmed, den: currState.todayConfirmed },
+        todayRecovered: { num: currDistrict.todayRecovered, den: currState.todayRecovered } 
       });
     }
   }
