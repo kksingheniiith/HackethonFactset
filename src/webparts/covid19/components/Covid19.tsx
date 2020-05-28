@@ -1,12 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 // import styles from './Covid19.module.scss';
-import { ICovid19Props, ICovid19States } from './ICovid19Props';
-import { escape } from '@microsoft/sp-lodash-subset';
+import { ICovid19Props, ICovid19States } from "./ICovid19Props";
+import { escape } from "@microsoft/sp-lodash-subset";
+import Grid from "./grid/grid";
 import covidService from '../../../Services/covid19.svc';
 
-export default class Covid19 extends React.Component<ICovid19Props, ICovid19States> {
-
-  constructor(props: any){
+export default class Covid19 extends React.Component<
+  ICovid19Props,
+  ICovid19States
+> {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -39,6 +42,7 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
         <a href="https://aka.ms/spfx">
           <span>gg</span>
         </a>
+        <Grid />
       </div>
     );
   }
