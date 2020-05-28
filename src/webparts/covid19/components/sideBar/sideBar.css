@@ -1,0 +1,15 @@
+.sidebar-card {
+  margin: 5px;
+  padding: 5px;
+}
+
+.sidebar-card:hover {
+  transform: scale(1.1);
+}
+
+.sidebar-class {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

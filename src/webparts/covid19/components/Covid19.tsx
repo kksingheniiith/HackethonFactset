@@ -5,12 +5,15 @@ import { ICovid19Props, ICovid19States } from "./ICovid19Props";
 import { escape } from "@microsoft/sp-lodash-subset";
 import Grid from "./grid/grid";
 import covidService from "../../../Services/covid19.svc";
-import { Spinner } from "react-bootstrap";
 import "./Covid19.css";
+<<<<<<< HEAD
+import SideBar from "./sideBar/sideBar";
+=======
 import { ServiceScope } from '@microsoft/sp-core-library';
 import { UserProfileService } from '../../../Services/UserProfileService';
 import { IUserProfile } from '../../../Services/IUserProfile';
 import { EmployeesDetail } from './EmpolyeesDetail/EmployeeDetail';
+>>>>>>> fc9ae871556df25cf69e720291e6dd5582ec3cb4
 
 export default class Covid19 extends React.Component<ICovid19Props, ICovid19States> {
   private dataCenterServiceInstance: any;
