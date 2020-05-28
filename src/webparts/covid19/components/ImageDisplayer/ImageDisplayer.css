@@ -1,10 +1,3 @@
-.image-display {
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-}
-
-.image-class {
-  width: 100%;
-  height: 100%;
+.image-display img{
+    width: 400px;
 }

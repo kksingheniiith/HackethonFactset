@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ImageDisplayProps } from "../ICovid19Props";
-// import "./ImageDisplayer.css";
+import "./ImageDisplayer.css";
 
 export default class ImageDisplayer extends React.Component<
   ImageDisplayProps,

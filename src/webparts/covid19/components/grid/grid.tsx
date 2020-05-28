@@ -126,8 +126,8 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
       let gridData = [];
       let { districtData } = this.props.statesDataObject[state];
       for (let district in districtData) {
-        let { active, deceased, confirmed, recovered } = districtData[district];
-        gridData.push({ district, active, deceased, confirmed, recovered });
+        let { active, deceased, confirmed, recovered, delta  } = districtData[district];
+        gridData.push({ district, active, deceased, confirmed, recovered, delta });
       }
       this.setState({
         columnDefs: [
@@ -146,7 +146,7 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
   public handleRowClick(row: any) {
     if (this.state.inDistrictLevel) {
       this.setState({
-        selectedDistrict: row.data,
+        selectedDistrict: {...row.data,todayConfirmed:row.data.delta.confirmed, todayDeceased:row.data.delta.deceased,todayRecovered: row.data.delta.recovered},
       });
     } else {
       const tempData = this.props.statesUpdatedData.filter(
