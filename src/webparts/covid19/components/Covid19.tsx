@@ -87,12 +87,6 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
     return (
       <div>
         <EmployeesDetail serviceScope={this.props.serviceScope} curentUser= {this.state.userProfileItems}/>
-        <span>{this.state.userProfileItems && this.state.userProfileItems.DisplayName ? "Welcome "+ this.state.userProfileItems.DisplayName : "Welcome ra" }</span>
-        <p>Customize SharePoint experiences using Web Parts.</p>
-        <p>{escape(this.props.description)}</p>
-        <a href="https://aka.ms/spfx">
-          <span>gg</span>
-        </a>
         <div className="grid-display">{display}</div>
       </div>
     );

@@ -42,7 +42,6 @@ export class UserProfileService {
             return response.json();    
           })    
           .then((response: { value: IUserProfile }): void => {    
-            //resolve(response.value);    
             var output: any = JSON.stringify(response);    
             resolve(output);   
           }, (error: any): void => {    
@@ -56,18 +55,19 @@ export class UserProfileService {
     }  
 
     public getListData(): Promise<ISPList> {
-        return this._spHttpClient.get(this._pageContext.web.absoluteUrl + "/_api/web/lists/GetByTitle('Employees')/Items", SPHttpClient.configurations.v1)
+        return this._spHttpClient.get(`${this._currentWebUrl}/_api/web/lists/GetByTitle('Employees')/Items`, SPHttpClient.configurations.v1)
             .then((response: SPHttpClientResponse) => {
                 return response.json();
             });
     }
     
-    public postListData(userEmail:any, data: any) {
+    public postListData(userEmail:any, status: any, name: string): Promise<boolean> {
         const body: string = JSON.stringify({  
             'Title': userEmail,
-            'Status':  data
+            'Status':  status,
+            'Name': name
           }); 
-        this._spHttpClient.post(this._pageContext.web.absoluteUrl + "/_api/web/lists/GetByTitle('Employees')/Items", SPHttpClient.configurations.v1,
+        return this._spHttpClient.post(`${this._currentWebUrl}/_api/web/lists/GetByTitle('Employees')/Items`, SPHttpClient.configurations.v1,
             {
                 headers: {
                     'Accept': 'application/json;odata=nometadata',
@@ -75,14 +75,14 @@ export class UserProfileService {
                     'odata-version': ''
                 },
                 body: body
-            });
+            }).then(response => true);
     }
 
     public UpdateListData(id: any, data: any) {
         const body: string = JSON.stringify({
             'Status': data
         });
-        this._spHttpClient.post(this._pageContext.web.absoluteUrl + `/_api/web/lists/GetByTitle('Employees')/items(${id})`, SPHttpClient.configurations.v1,
+        this._spHttpClient.post(`${this._currentWebUrl}/_api/web/lists/GetByTitle('Employees')/items(${id})`, SPHttpClient.configurations.v1,
             {
                 headers: {
                     'Accept': 'application/json;odata=nometadata',

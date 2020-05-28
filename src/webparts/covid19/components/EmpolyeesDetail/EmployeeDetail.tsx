@@ -9,7 +9,10 @@ import {
   } from 'office-ui-fabric-react';
 import { UserProfileService } from '../../../../Services/UserProfileService';
 import { IEmployeeDetailProps, IEmployeeDetailStates } from './IEmployeeDetail';
+import { GridHeader } from '../Common/GridHeader/GridHeader';
+import { GridRow } from '../Common/GridRow/GridRow';
 import './EmployeeDetail.scss';
+
 
 enum Status{
   SAFE = "Safe",
@@ -22,21 +25,33 @@ export class EmployeesDetail extends React.Component<IEmployeeDetailProps, IEmpl
     constructor(props: any){
         super(props);
         this.state = {
-            employeesDetail : [],
+            employeesDetail : [{Title:"kundan",Status: Status.SAFE},{Title:"raju", Status: Status.CONFIRMED}],
             safe: 0,
             symptom: 0,
             confirm: 0,
-            showDialog: false
+            showMarkDialog: false,
+            showEmployeeDialog: false
         };
-        this._showDialog = this._showDialog.bind(this);
-        this._closeDialog = this._closeDialog.bind(this);
+        this._showMarkDialog = this._showMarkDialog.bind(this);
+        this._showEmployeeDialog = this._showEmployeeDialog.bind(this);
+        this._closeMarkDialog = this._closeMarkDialog.bind(this);
+        this._closeEmployeeDialog = this._closeEmployeeDialog.bind(this);
     }
 
-    private _showDialog() {
-        this.setState({ showDialog: true });
+    private _showMarkDialog() {
+        this.setState({ showMarkDialog: true });
     }
 
-    private _closeDialog(status: string) {
+    private _showEmployeeDialog() {
+        this.setState({ showEmployeeDialog: true });
+    }
+
+    private _closeEmployeeDialog() {
+        this.setState({ showEmployeeDialog: false });
+    }
+    public componentWillReceiveProps
+
+    private _closeMarkDialog(status: string) {
         if(status.length > 0){
             let serviceScope: ServiceScope = this.props.serviceScope;
             this.dataCenterServiceInstance = serviceScope.consume(UserProfileService.serviceKey);
@@ -45,12 +60,21 @@ export class EmployeesDetail extends React.Component<IEmployeeDetailProps, IEmpl
                 this.updateStatus(status, this.state.employeesDetail.filter(detail => detail.Title == this.props.curentUser.Email)[0].Status);
             }
             else{
-                this.dataCenterServiceInstance.postListData(this.props.curentUser.Email, status);
+                this.dataCenterServiceInstance.postListData(this.props.curentUser.Email, status, this.props.curentUser.DisplayName).then((updated: boolean) => {
+                    this.dataCenterServiceInstance.getListData().then((data: any) => {
+                        this.setState({
+                            employeesDetail : data.value,
+                            safe: data.value.filter(val => val.Status == "Safe").length,
+                            symptom: data.value.filter(val => val.Status == "Symptoms").length,
+                            confirm: data.value.filter(val => val.Status == "Confirmed").length
+                        });
+                    });
+                });
                 this.updateStatus(status);
             }
         }
         
-        this.setState({ showDialog: false });
+        this.setState({ showMarkDialog: false });
     }
 
     private updateStatus(status: string, oldStatus?: string){
@@ -101,22 +125,38 @@ export class EmployeesDetail extends React.Component<IEmployeeDetailProps, IEmpl
                     <span className="safe-text">{`${this.state.safe} Employees are marked as safe, `}</span>
                     <span className="symptom-text">{`${this.state.symptom} Employees are feeling same symptom, `}</span>
                     <span className="confirm-text">{`${this.state.confirm} Employees are confirmed`}</span>
-                    <Button className="mark-button" onClick={this._showDialog}>Mark as safe</Button>
+                    <Button className="mark-button" onClick={this._showEmployeeDialog}>Employees List</Button>
+                    <Button className="mark-button" onClick={this._showMarkDialog}>Mark as safe</Button>
                 </header>
                 <Dialog
-                    isOpen={this.state.showDialog}
+                    isOpen={this.state.showMarkDialog}
                     type={DialogType.normal}
-                    onDismiss={() => {this._closeDialog("");}}
+                    onDismiss={() => {this._closeMarkDialog("");}}
                     title='Please confirm your status'
                     isBlocking={false}
                     containerClassName='ms-dialogMainOverride'
-                    maxWidth="600"
                 >
                     <DialogFooter>
-                        <Button buttonType={ButtonType.primary} onClick={() => this._closeDialog("Safe")}>Safe</Button>
-                        <Button buttonType={ButtonType.primary} onClick={() => this._closeDialog("Symptoms")}>Symptoms</Button>
-                        <Button buttonType={ButtonType.primary} onClick={() => this._closeDialog("Confirmed")}>Confirmed</Button>
+                        <Button buttonType={ButtonType.primary} onClick={() => this._closeMarkDialog("Safe")}>Safe</Button>
+                        <Button buttonType={ButtonType.primary} onClick={() => this._closeMarkDialog("Symptoms")}>Symptoms</Button>
+                        <Button buttonType={ButtonType.primary} onClick={() => this._closeMarkDialog("Confirmed")}>Confirmed</Button>
                     </DialogFooter>
+                </Dialog>
+                <Dialog
+                    isOpen={this.state.showEmployeeDialog}
+                    type={DialogType.normal}
+                    onDismiss={() => {this._closeEmployeeDialog();}}
+                    title='Emolyees List'
+                    isBlocking={false}
+                    containerClassName='ms-dialogMainOverride'
+                    maxWidth="800"
+                >
+                    <GridHeader cols={["NAME", "EMAIL", "STATUS"]}/>
+                    {
+                        this.state.employeesDetail.map((detail: any, index: number) => {
+                            return <GridRow cols={["Kundan", detail.Title, detail.Status]} isEven={index%2 != 0}/>
+                        })
+                    }
                 </Dialog>
             </div>
         );

@@ -1,5 +1,5 @@
 .ms-Dialog-main{
-    max-width: 600px;
+    width: 700px;
 }
 .ms-Dialog-actionsRight{
     text-align: left;
@@ -10,6 +10,7 @@
     font-weight: 600;
     font-size: 15px;
     margin-bottom: 50px;
+    text-align: center;
 }
 .safe-text{
     color: #4fce4f;
@@ -27,5 +28,8 @@
     background-color: #ff2b2b;
 }
 .mark-button{
+    float: right;
     background-color: #e0dcea;
+    margin-top: -5px;
+    margin-left: 20px;
 }

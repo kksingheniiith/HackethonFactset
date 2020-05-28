@@ -10,5 +10,6 @@ export interface IEmployeeDetailStates {
     safe: number;
     symptom: number;
     confirm: number;
-    showDialog: boolean;
+    showMarkDialog: boolean;
+    showEmployeeDialog: boolean;
 }
