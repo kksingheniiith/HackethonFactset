@@ -1,5 +1,6 @@
 export interface ICovid19Props {
   description: string;
+  serviceScope: any;
 }
 
 export interface ICovid19States {
@@ -8,6 +9,7 @@ export interface ICovid19States {
   siteTabTitle: string;
   stateWiseDataInArray: Array<any>;
   stateWiseDataInObject: any;
+  userProfileItems: any;
 }
 
 export interface IGridStates {

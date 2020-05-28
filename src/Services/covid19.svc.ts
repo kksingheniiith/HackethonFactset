@@ -1,5 +1,8 @@
+import { SPHttpClient } from '@microsoft/sp-http';
+
 class covidService {
-    public async getStateWiseData(): Promise<any>{
+    private context;
+    public getStateWiseData(): Promise<any>{
         return fetch(
             "https://api.covid19india.org/state_district_wise.json"
         ).then((response: any) => {
@@ -7,8 +10,7 @@ class covidService {
         }).then((data: any) => {
             return data;
         });
-    };
-    
+    }
 }
 
 export default new covidService();
