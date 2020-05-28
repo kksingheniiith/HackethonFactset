@@ -6,4 +6,6 @@ export interface ICovid19States {
   title: string;
   subTitle: string,
   siteTabTitle: string,
+  stateWiseDataInArray: Array<any>,
+  stateWiseDataInObject: any
 }
