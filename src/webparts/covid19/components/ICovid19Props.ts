@@ -6,11 +6,17 @@ export interface ICovid19States {
   title: string;
   subTitle: string;
   siteTabTitle: string;
-  stateWiseDataInArray: Array<any>,
-  stateWiseDataInObject: any
+  stateWiseDataInArray: Array<any>;
+  stateWiseDataInObject: any;
 }
 
 export interface IGridStates {
   columnDefs: Array<any>;
   rowData: Array<any>;
+  inDistrictLevel: boolean;
+}
+
+export interface IGridProps {
+  statesData: Array<any>;
+  statesDataObject: any;
 }
