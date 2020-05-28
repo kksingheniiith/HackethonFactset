@@ -21,7 +21,8 @@ export default class Covid19WebPart extends BaseClientSideWebPart <ICovid19WebPa
     const element: React.ReactElement<ICovid19Props> = React.createElement(
       Covid19,
       {
-        description: this.properties.description
+        description: this.properties.description,
+        serviceScope: this.context.serviceScope
       }
     );
 

@@ -1,0 +1,35 @@
+.ms-Dialog-main{
+    width: 700px;
+}
+.ms-Dialog-actionsRight{
+    text-align: left;
+}
+.employee-detail-header{
+    background-color: #f4f4f4;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.safe-text{
+    color: #4fce4f;
+}
+.symptom-text{
+    color: #9797a5;
+}
+.confirm-text{
+    color: #ff2b2b;
+}
+.ms-Dialog-action:nth-child(2) .ms-Button{
+    background-color: #9797a5;
+}
+.ms-Dialog-action:nth-child(3) .ms-Button{
+    background-color: #ff2b2b;
+}
+.mark-button{
+    float: right;
+    background-color: #e0dcea;
+    margin-top: -5px;
+    margin-left: 20px;
+}
