@@ -11,3 +11,8 @@ export interface ICovid19States {
   stateWiseDataInObject: any;
   userProfileItems: any;
 }
+
+export interface IGridStates {
+  columnDefs: Array<any>;
+  rowData: Array<any>;
+}
