@@ -48,7 +48,6 @@ export default class SideBar extends React.Component<
   }
 
   public componentWillReceiveProps(updatedProps: any) {
-    console.log("props", this.props);
     let { currState, currDistrict, IndiaData } = updatedProps;
     if (currDistrict === "none") {
       this.setState({

@@ -12,9 +12,12 @@ import { UserProfileService } from '../../../Services/UserProfileService';
 import { IUserProfile } from '../../../Services/IUserProfile';
 import { EmployeesDetail } from './EmpolyeesDetail/EmployeeDetail';
 
-export default class Covid19 extends React.Component<ICovid19Props, ICovid19States> {
+export default class Covid19 extends React.Component<
+  ICovid19Props,
+  ICovid19States
+> {
   private dataCenterServiceInstance: any;
-  constructor(props: any){
+  constructor(props: any) {
     super(props);
     this.state = {
       title: "Welcome to Teams App!",
@@ -91,7 +94,10 @@ export default class Covid19 extends React.Component<ICovid19Props, ICovid19Stat
 
     return (
       <div>
-        <EmployeesDetail serviceScope={this.props.serviceScope} curentUser= {this.state.userProfileItems}/>
+        <EmployeesDetail
+          serviceScope={this.props.serviceScope}
+          curentUser={this.state.userProfileItems}
+        />
         <div className="grid-display">{display}</div>
       </div>
     );

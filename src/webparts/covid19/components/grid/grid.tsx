@@ -6,6 +6,7 @@ import { IGridStates, IGridProps } from "../ICovid19Props";
 import "./grid.css";
 import "ag-grid-enterprise";
 import SideBar from "../sideBar/sideBar";
+import ImageDisplayer from "../ImageDisplayer/ImageDisplayer";
 
 export default class Grid extends React.Component<IGridProps, IGridStates> {
   constructor(props: any) {
@@ -17,6 +18,7 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
       selectedDistrict: "none",
       selectedState: "none",
       totalIndiaCount: "none",
+      imageUrl: "",
     };
     this.rowSelected = this.rowSelected.bind(this);
     this.loadInitialGrid = this.loadInitialGrid.bind(this);
@@ -89,10 +91,12 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
               todayConfirmed: todayConfirmedCount,
               todayRecovered: todayrecoveredCount
             },
+            imageUrl: state + ".png",
           });
         }
       }
     });
+    console.log("size ++++ ", gridData.length);
     this.setState({
       columnDefs: [
         { headerName: "STATE", field: "state", filter: true },
@@ -144,6 +148,7 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
       const tempData = this.props.statesUpdatedData.filter(data => data.state == row.data.state)[0];
       this.setState({
         selectedState: {...row.data,todayConfirmed:tempData.deltaconfirmed, todayDeceased:tempData.deltadeaths,todayRecovered: tempData.deltarecovered},
+        imageUrl: row.data.state + ".png",
       });
     }
   }
@@ -189,6 +194,7 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
           />
         </div>
         {sideBar}
+        <ImageDisplayer url={this.state.imageUrl} />
       </React.Fragment>
     );
   }
