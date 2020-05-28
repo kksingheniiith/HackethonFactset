@@ -5,7 +5,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { IGridStates, IGridProps } from "../ICovid19Props";
 import "./grid.css";
 import "ag-grid-enterprise";
-import { RowDragFeature } from "ag-grid-community/dist/lib/gridPanel/rowDragFeature";
+import SideBar from "../sideBar/sideBar";
 
 export default class Grid extends React.Component<IGridProps, IGridStates> {
   constructor(props: any) {
@@ -14,17 +14,28 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
       columnDefs: [],
       rowData: [],
       inDistrictLevel: false,
+      selectedDistrict: "none",
+      selectedState: "none",
+      totalIndiaCount: "none",
     };
     this.rowSelected = this.rowSelected.bind(this);
     this.loadInitialGrid = this.loadInitialGrid.bind(this);
+    this.handleRowClick = this.handleRowClick.bind(this);
   }
   public componentDidMount() {
     this.loadInitialGrid();
   }
 
   public loadInitialGrid() {
+    this.setState({
+      selectedDistrict: "none",
+    });
     let gridData = [];
     const stateData = this.props.statesData;
+    let Iactive = 0,
+      Ideceased = 0,
+      Irecovered = 0,
+      Iconfirmed = 0;
     stateData.forEach(({ state, data }) => {
       let activeCount = 0,
         deceasedCount = 0,
@@ -37,9 +48,13 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
         activeCount += active;
         confirmedCount += confirmed;
         deceasedCount += deceased;
-        recoveredCount += recoveredCount;
+        recoveredCount += recovered;
       }
       if (state !== "State Unassigned") {
+        Iconfirmed += confirmedCount;
+        Iactive += activeCount;
+        Ideceased += deceasedCount;
+        Irecovered += recoveredCount;
         gridData.push({
           state,
           active: activeCount,
@@ -47,6 +62,17 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
           confirmed: confirmedCount,
           recovered: recoveredCount,
         });
+        if (state === "Andaman and Nicobar Islands") {
+          this.setState({
+            selectedState: {
+              state,
+              active: activeCount,
+              deceased: deceasedCount,
+              confirmed: confirmedCount,
+              recovered: recoveredCount,
+            },
+          });
+        }
       }
     });
     this.setState({
@@ -59,6 +85,12 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
       ],
       rowData: [...gridData],
       inDistrictLevel: false,
+      totalIndiaCount: {
+        active: Iactive,
+        recovered: Irecovered,
+        confirmed: Iconfirmed,
+        deceased: Ideceased,
+      },
     });
   }
 
@@ -71,8 +103,6 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
         let { active, deceased, confirmed, recovered } = districtData[district];
         gridData.push({ district, active, deceased, confirmed, recovered });
       }
-      console.log("hehe dis ++ ", gridData);
-      let temp = [...this.state.columnDefs];
       this.setState({
         columnDefs: [
           { headerName: "DISTRICT", field: "district", filter: true },
@@ -83,6 +113,18 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
         ],
         rowData: [...gridData],
         inDistrictLevel: true,
+      });
+    }
+  }
+
+  public handleRowClick(row: any) {
+    if (this.state.inDistrictLevel) {
+      this.setState({
+        selectedDistrict: row.data,
+      });
+    } else {
+      this.setState({
+        selectedState: row.data,
       });
     }
   }
@@ -102,17 +144,33 @@ export default class Grid extends React.Component<IGridProps, IGridStates> {
     } else {
       backButton = <span></span>;
     }
-    return (
-      <div className="ag-theme-alpine grid-class">
-        {backButton}
-        <AgGridReact
-          columnDefs={this.state.columnDefs}
-          rowData={this.state.rowData}
-          rowSelection="single"
-          suppressCellSelection={true}
-          onRowDoubleClicked={this.rowSelected}
+    let sideBar;
+    if (this.state.totalIndiaCount === "none") {
+      sideBar = <span></span>;
+    } else {
+      sideBar = (
+        <SideBar
+          currState={this.state.selectedState}
+          currDistrict={this.state.selectedDistrict}
+          IndiaData={this.state.totalIndiaCount}
         />
-      </div>
+      );
+    }
+    return (
+      <React.Fragment>
+        <div className="ag-theme-alpine grid-class">
+          {backButton}
+          <AgGridReact
+            columnDefs={this.state.columnDefs}
+            rowData={this.state.rowData}
+            rowSelection="single"
+            suppressCellSelection={true}
+            onRowDoubleClicked={this.rowSelected}
+            onRowClicked={this.handleRowClick}
+          />
+        </div>
+        {sideBar}
+      </React.Fragment>
     );
   }
 }

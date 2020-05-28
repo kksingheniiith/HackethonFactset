@@ -14,9 +14,25 @@ export interface IGridStates {
   columnDefs: Array<any>;
   rowData: Array<any>;
   inDistrictLevel: boolean;
+  selectedState: any;
+  selectedDistrict: any;
+  totalIndiaCount: any;
 }
 
 export interface IGridProps {
   statesData: Array<any>;
   statesDataObject: any;
+}
+
+export interface ISideBarProps {
+  currState: any;
+  currDistrict: any;
+  IndiaData: any;
+}
+export interface ISideBarStates {
+  name: string;
+  active: any;
+  confirmed: any;
+  deceased: any;
+  recovered: any;
 }

@@ -5,8 +5,8 @@ import { ICovid19Props, ICovid19States } from "./ICovid19Props";
 import { escape } from "@microsoft/sp-lodash-subset";
 import Grid from "./grid/grid";
 import covidService from "../../../Services/covid19.svc";
-import { Spinner } from "react-bootstrap";
 import "./Covid19.css";
+import SideBar from "./sideBar/sideBar";
 
 export default class Covid19 extends React.Component<
   ICovid19Props,
